@@ -1,21 +1,17 @@
 function l = label_pixel(data,pixel,tree)
     width = size(data,1);
+    
     while ~isequal(tree.true_node,[])
-        learner = tree.learner;
-        offset_values1 = [pixel+learner(1:2)];
-        offset_values2 = [pixel+learner(3:4)];
+        nl = tree.learner;
+        numPixels = size(nl,2);
         
-        %thresholding
-        offset_values1(offset_values1<1) = 1;
-        offset_values1(offset_values1>width) = width;
-        offset_values2(offset_values2<1) = 1;
-        offset_values2(offset_values2>width) = width;
+        offset_values = reshape(nl(:,:,1:2),numPixels,2);
+        offset_values = offset_values + pixel(ones(numPixels,1),:);
+        offset_values(offset_values<1) = 1;
+        offset_values(offset_values>width) = width;
         
-        val1 = matrixSelect(data,offset_values1);
-        val2 = matrixSelect(data,offset_values2);
-        
-        res = val1+val2*2;
-        if(res==learner(5))
+        val = matrixSelect(data,offset_values);
+        if(isequal(val',nl(:,:,3)))
             tree = tree.true_node;
         else
             tree = tree.false_node;
