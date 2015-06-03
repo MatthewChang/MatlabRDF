@@ -1,4 +1,4 @@
-function res_labels = separate_items(data,items,nl)
+function res_labels = separate_items(data,items,nl,num_labels)
         width = size(data,1);
         num_items = size(items,1);        
         numLearnerPoints = size(nl,2);
@@ -21,7 +21,7 @@ function res_labels = separate_items(data,items,nl)
         for i = 1:numLearnerPoints
             learner_value = learner_value + nl(:,i,3)*d;
             feature(:,:) = feature(:,:) + matrixSelect(data,offset_values(:,:,i))*d;
-            d=d*2;
+            d=d*num_labels;
         end
         res_labels = feature;
         res_labels(res_labels~=learner_value) = -1;
