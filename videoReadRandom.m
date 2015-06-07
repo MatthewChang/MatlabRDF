@@ -8,6 +8,7 @@ mov = struct('cdata',zeros(square_width,square_width,3,'uint8'),...
     'colormap',[]);
 k = 1;
 result = [];
+width = 128;
 while hasFrame(xyloObj)
     frame = readFrame(xyloObj);
     frame = imresize(frame,[square_width,square_width]);
@@ -25,6 +26,9 @@ hf = figure;
 set(hf,'position',[150 150 square_width square_width]);
 mov = [mov(10:end-60)];
 movie(hf,mov,1,xyloObj.FrameRate);
-size(result)
+result = zeros(square_width,square_width,size(mov,2));
+for i = 1:size(mov,2)
+    result(:,:,i) = mov(i).cdata(:,:,1)/256;
+end
 randomHandFrames = result;
 save('matlabVideos/random','randomHandFrames');

@@ -9,12 +9,8 @@ function res_labels = separate_items(data,items,nl,num_labels)
             o = o(ones(num_items,1),:);
             offset_values(:,:,i) = [items(:,1:2)+o items(:,3)];
         end
-        offp = offset_values(:,1:2,:);
-        offp(offp<1) = 1;
-        offp(offp>width) = width;
-        offset_values(:,1:2,:) = offp;
-        
-        
+        offset_values(:,1:2,:) = mod(offset_values(:,1:2,:)-1,width)+1;
+                
         feature = zeros(num_items,1);
         learner_value = 0;
         d=1;
