@@ -1,8 +1,9 @@
+width = 128;
 loaed_data = [];
-loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/open.avi',50,70,1));
-loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/closed.avi',50,78,2));
-loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/gun.avi',50,75,3));
-loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/random.avi',50,85,4));
+loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/open.avi',width,70,1));
+loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/closed.avi',width,78,2));
+loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/gun.avi',width,75,3));
+loaed_data = cat(3,loaed_data,load_video_data('trimmed_videos/random.avi',width,85,4));
 size(loaed_data)
 d_s = size(loaed_data);
 square_width = d_s(1);

@@ -1,11 +1,11 @@
 clear
 use_cached_data = false;
 use_cached_learners = false;
-width = 50;
+width = 128;
 num_items = 50000;
 numTrees  = 3;
 learners_to_generate = 100;
-tree_height = 15;
+tree_height = 20;
 num_pixels_per_learner = 1;
 num_labels = 5;
 

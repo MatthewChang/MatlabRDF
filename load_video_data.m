@@ -11,7 +11,7 @@ function data = load_video_data(file,square_width,threshold,label)
         
         [~,thresh] = edge(frame,'sobel');
         sobel = edge(frame,'sobel',thresh);
-        se3 = strel('square',2);
+        se3 = strel('square',4);
         sobel = imdilate(sobel,se3);
         sobel = imresize(sobel,[square_width,square_width]);  
         
