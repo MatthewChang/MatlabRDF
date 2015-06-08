@@ -15,8 +15,8 @@ if ~exist('data.mat','file') || ~use_cached_data
     data = [];
     data = cat(3,data,load_video_data('trimmed_videos/open.avi',width,70,1));
     data = cat(3,data,load_video_data('trimmed_videos/closed.avi',width,78,2));
-    data = cat(3,data,load_video_data('trimmed_videos/gun.avi',width,75,3));
-    data = cat(3,data,load_video_data('trimmed_videos/random.avi',width,85,4));
+    data = cat(3,data,load_video_data('trimmed_videos/gun.avi',128,75,3));
+    data = cat(3,data,load_video_data('trimmed_videos/random.avi',128,85,4));
     
     size(data)
     save('data.mat','data')
