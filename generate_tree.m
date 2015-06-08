@@ -3,12 +3,10 @@ function node = generate_tree(data,items,labels,num_labels,num_pixels_per_learne
         depth = 0;
     end
     width = size(data,1);
-    learners = [];
+    learners = zeros(numLearners,num_pixels_per_learner,3);
     for i = 1:numLearners
-        learners(end+1,:,:) = normalRandomFeature(width,num_labels,num_pixels_per_learner);
+        learners(i,:,:)=normalRandomFeature(width,num_labels,num_pixels_per_learner);
     end
-    
-    %need to fix this?
     total_entropy = entropy_from_labels(labels);
     if total_entropy == 0 || depth > height
         node = tree_node;

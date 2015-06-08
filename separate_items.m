@@ -1,6 +1,6 @@
 function res_labels = separate_items(data,items,nl,num_labels)
         width = size(data,1);
-        num_items = size(items,1);        
+        num_items = size(items,1);
         numLearnerPoints = size(nl,2);
         
         offset_values = [];
