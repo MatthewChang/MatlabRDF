@@ -1,0 +1,8 @@
+function result = serializeTree(node)
+    result = [];
+    if isequal(node.true_node,[])
+        result = [node.label -1 -1];
+        return
+    end
+    result = [node.learner;serializeTree(r
+end

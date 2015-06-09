@@ -2,10 +2,10 @@ clear
 use_cached_data = false;
 use_cached_learners = false;
 width = 128;
-num_items = 50000;
+num_items = 20000;
 numTrees  = 3;
 learners_to_generate = 100;
-tree_height = 20;
+tree_height = 3;
 num_pixels_per_learner = 1;
 num_labels = 5;
 
