@@ -3,3 +3,5 @@ open/*
 closed/*
 data/*
 matlabVideos/*
+*.mp4
+*.avi

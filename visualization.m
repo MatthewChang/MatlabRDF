@@ -1,3 +1,4 @@
+%idea train on difference of hue?
 label_results = true;
 d_s = size(data);
 square_width = d_s(1);
@@ -21,7 +22,7 @@ if label_results
 end
 for i = 1:size(data,3)
     
-    frame = uint8(repmat(data(:,:,i,1),[1 1 3]))*256;
+    frame = uint8(repmat(data(:,:,i,1),[1 1 3]));
     
     mask = data(:,:,i,2);
     frame2 = repmat(data(:,:,i,2)*256,[1 1 3]);
@@ -47,3 +48,11 @@ end
 hf = figure;
 set(hf,'position',[150 150 square_width*3 square_width]);
 movie(hf,mov,1,10);
+
+writerObj = VideoWriter('treesize20');
+writerObj.FrameRate = 14;
+open(writerObj);
+for k = 1:size(mov,2)
+   frame = mov(k).cdata;
+   writeVideo(writerObj,frame);
+end

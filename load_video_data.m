@@ -9,13 +9,8 @@ function data = load_video_data(file,square_width,threshold,label)
         
         frame = imresize(frame,[square_width,square_width]); 
         
-        [~,thresh] = edge(frame,'sobel');
-        sobel = edge(frame,'sobel',thresh);
-        se3 = strel('square',4);
-        sobel = imdilate(sobel,se3);
-        sobel = imresize(sobel,[square_width,square_width]);  
-        
-        
+        sobel = imgradient(frame,'sobel');
+                
         frame(frame<threshold) = 0;
         frame(frame>=threshold) = label;
         %frame(:,1:20,:) = zeros(square_width,20,1);
