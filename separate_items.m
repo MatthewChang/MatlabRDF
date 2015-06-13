@@ -3,14 +3,14 @@ function res_labels = separate_items(data,items,nl,num_labels)
         num_items = size(items,1);
         numLearnerPoints = size(nl,2);
         
-        offset_values = [];
+        offset_values = zeros(size(items,1), 3, numLearnerPoints);
         for i = 1:numLearnerPoints
             o = reshape(nl(:,i,1:2),1,2);
             o = o(ones(num_items,1),:);
             offset_values(:,:,i) = [items(:,1:2)+o items(:,3)];
         end
         offset_values(:,1:2,:) = mod(offset_values(:,1:2,:)-1,width)+1;
-        feature = matrixSelect(data,offset_values(:,:,i));
+        feature = abs(matrixSelect(data,offset_values(:,:,i)) - matrixSelect(data,items(:,:,i)));
         res_labels = feature>=nl(3);
 %         feature = zeros(num_items,1);
 %         learner_value = 0;

@@ -1,6 +1,6 @@
 function output = normalRandomFeature(width,num_labels,num_features)
     stddev = width/2;
-    output =cat(3,floor(normrnd(0,stddev,1,num_features,2)),rand()*200); 
+    output =cat(3,floor(normrnd(0,stddev,1,num_features,2)),rand()*255); 
     %output = [randi(128*2,1,4)-128,   randi(4)-1];
 end
 

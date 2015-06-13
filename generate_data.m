@@ -38,11 +38,8 @@ while hasFrame(xyloObj) && k <= 250
 end
 %data(1:10,:,:,:) = 0;
 %data(70:75,80:90,:,:) = 256;
+max(data(:))
 disp_data = reshape(data(:,:,:,1),128,128,1,250);
-m = max(disp_data(:));
-disp_data = disp_data*255/m;
-disp_data(disp_data<1) = 1;
-
 % map = colormap(gray(256));%256 as an example.
 % mov = immovie(disp_data,map);
 % hf = figure;
