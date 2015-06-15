@@ -11,6 +11,7 @@ function res_labels = separate_items(data,items,nl,num_labels)
         end
         offset_values(:,1:2,:) = mod(offset_values(:,1:2,:)-1,width)+1;
         feature = abs(matrixSelect(data,offset_values(:,:,i)) - matrixSelect(data,items(:,:,i)));
+        feature(feature>127) = 255-feature(feature>127);
         res_labels = feature>=nl(3);
 %         feature = zeros(num_items,1);
 %         learner_value = 0;

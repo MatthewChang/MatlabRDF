@@ -1,22 +1,17 @@
 function l = label_pixel(data,pixel,tree)
-    width = size(data,1);
-    
-    while ~isequal(tree.true_node,[])
-        nl = tree.learner;
-        numPixels = size(nl,2);
-        
-        offset_values = reshape(nl(:,:,1:2),numPixels,2);
-        offset_values = offset_values + pixel(ones(numPixels,1),:);
-        offset_values(offset_values<1) = 1;
-        offset_values(offset_values>width) = width;
-        
-        val = matrixSelect(data,offset_values);
-        if(isequal(val',nl(:,:,3)))
-            tree = tree.true_node;
+    node = tree;    
+    while ~isequal(node.true_node,[])
+        n = mod(pixel+[node.learner(1) node.learner(2)]-1,128)+1;
+        feature = abs(matrixSelect(data,n) - matrixSelect(data,pixel));
+        if(feature > 127)
+            feature = 255-feature;
+        end
+        if(feature >= node.learner(3))
+            node = node.true_node;
         else
-            tree = tree.false_node;
+            node = node.false_node;
         end
     end
-    l = tree.label;
+    l = node.label;
 end
 

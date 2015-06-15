@@ -1,5 +1,6 @@
 %idea train on difference of hue?
-label_results = false;
+label_results = true;
+data = data(:,:,:,:);
 d_s = size(data);
 square_width = d_s(1);
 mov = struct('cdata',zeros(square_width,square_width,3,'uint8'),...
@@ -21,9 +22,9 @@ if label_results
     save('labeled_results','labeled_results');
 end
 disp_results = labeled_results;
-for i = 1:size(disp_results,3)
-    disp_results(:,:,i) = disp_results(:,:,i).*bwareaopen(disp_results(:,:,i),3);
-end
+% for i = 1:size(disp_results,3)
+%     disp_results(:,:,i) = disp_results(:,:,i).*bwareaopen(disp_results(:,:,i),20);
+% end
 for i = 1:size(data,3)
     
     frame = uint8(repmat(data(:,:,i,1),[1 1 3]));
