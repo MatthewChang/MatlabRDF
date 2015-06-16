@@ -1,5 +1,5 @@
 label_results = true;
-data = data(:,:,:,1:20);
+%data = data(:,:,:,:);
 d_s = size(data);
 square_width = d_s(1);
 mov = struct('cdata',zeros(square_width,square_width,3,'uint8'),...
