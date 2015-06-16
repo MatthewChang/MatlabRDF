@@ -1,4 +1,4 @@
-label_results = true;
+label_results = false;
 %data = data(:,:,:,:);
 d_s = size(data);
 square_width = d_s(1);
