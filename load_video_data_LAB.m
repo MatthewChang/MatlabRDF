@@ -1,0 +1,28 @@
+function [data,labels] = load_video_data_hsv(file,square_width,threshold,label,lighting)
+    xyloObj = VideoReader(file);
+    k = 1;
+    data = [];
+    labels = [];
+    while hasFrame(xyloObj)
+        frame = readFrame(xyloObj);
+        frame = imresize(frame,[square_width,square_width]);
+        
+        if(lighting)
+            HSV = rgb2hsv(frame);
+            HSV(:, :, 2) = HSV(:, :, 2) + (rand()*1-0.5);
+            HSV(:, :, 3) = HSV(:, :, 3) + (rand()*1-0.5);
+            HSV(HSV > 1) = 1;  % Limit values
+            HSV(HSV < 0) = 0;  % Limit values
+            LAB = rgb2lab(hsv2rgb(HSV));
+        else
+            LAB = rgb2lab(frame);
+        end
+        frame = rgb2gray(frame); 
+        frame(frame<threshold) = 0;
+        frame(frame>=threshold) = label;
+        
+        data(:,:,1:3,k) = LAB;
+        labels(:,:,k) = frame;
+        k = k+1;
+    end
+end

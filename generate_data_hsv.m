@@ -1,8 +1,8 @@
 clear;
 width = 128;
-hand_data = load_video_data_hsv('hands/open2.mp4',width,55,1);
+hand_data = load_video_data_LAB('hands/open2.mp4',width,55,1);
 %   data = hand_data;
-hand_data = cat(3,hand_data,load_video_data_hsv('hands/closed.mp4',width,100,2));
+%hand_data = cat(3,hand_data,load_video_data_hsv('hands/closed.mp4',width,100,2));
 %data(1:10,:,:,:) = 0;
 %data(70:75,80:90,:,:) = 256;
 % hand_data2 = floor(hand_data*255 + 1);

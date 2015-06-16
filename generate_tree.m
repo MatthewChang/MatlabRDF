@@ -1,4 +1,4 @@
-function node = generate_tree(data,items,labels,num_labels,num_pixels_per_learner,numLearners,height,depth)
+function node = generate_tree(data,items,item_labels,num_labels,num_pixels_per_learner,numLearners,height,depth)
     if(nargin < 8)
         depth = 0;
     end
@@ -7,18 +7,18 @@ function node = generate_tree(data,items,labels,num_labels,num_pixels_per_learne
     for i = 1:numLearners
         learners(i,:,:)=normalRandomFeature(width,num_labels,num_pixels_per_learner);
     end
-    total_entropy = entropy_from_labels(labels);
+    total_entropy = entropy_from_labels(item_labels);
     if total_entropy == 0 || depth > height
         node = tree_node;
-        node.label = mode(labels(:));
+        node.label = mode(item_labels(:));
         return
     end
     entropy_decrease = ones(size(learners,1),1);
-    possible_labels = unique(labels);
+    possible_labels = unique(item_labels);
     for i = 1:numLearners
-        res_labels = separate_items(data,items,learners(i,:,:),num_labels);
-        decided_true_labels = labels(res_labels==1,:);
-        decided_false_labels = labels(res_labels==0,:);
+        res_labels = separate_items(data,items,learners(i,:,:));
+        decided_true_labels = item_labels(res_labels==1,:);
+        decided_false_labels = item_labels(res_labels==0,:);
         true_label_counts = label_counts(decided_true_labels,possible_labels);
         false_label_counts = label_counts(decided_false_labels,possible_labels);
         count_matrix = [true_label_counts';false_label_counts'];
@@ -31,11 +31,11 @@ function node = generate_tree(data,items,labels,num_labels,num_pixels_per_learne
         entropy_decrease(i) = total_entropy-e;
     end
     [~,i] = max(entropy_decrease);
-    best_separation = separate_items(data,items,learners(i,:,:),num_labels);
+    best_separation = separate_items(data,items,learners(i,:,:));
     positive_id_items = items(best_separation==1,:);
-    positive_id_labels = labels(best_separation==1);
+    positive_id_labels = item_labels(best_separation==1);
     negative_id_items = items(best_separation==0,:);
-    negative_id_labels = labels(best_separation==0);
+    negative_id_labels = item_labels(best_separation==0);
     node = tree_node;
     node.learner = learners(i,:,:);
     node.true_node = generate_tree(data,positive_id_items,positive_id_labels,num_labels,num_pixels_per_learner,numLearners,height,depth+1);

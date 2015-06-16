@@ -3,7 +3,7 @@ function labels = label_items_tree(data,tree,items,num_labels)
         labels = ones(size(items,1),1)*tree.label;
         return
     end
-    separation = separate_items(data,items,tree.learner,num_labels);
+    separation = separate_items(data,items,tree.learner);
     labels = zeros(size(items,1),1);
     positive_id_items = items(separation==1,:);
     negative_id_items = items(separation==0,:);

@@ -1,6 +1,5 @@
-%idea train on difference of hue?
 label_results = true;
-data = data(:,:,:,:);
+%data = data(:,:,:,:);
 d_s = size(data);
 square_width = d_s(1);
 mov = struct('cdata',zeros(square_width,square_width,3,'uint8'),...
@@ -8,7 +7,7 @@ mov = struct('cdata',zeros(square_width,square_width,3,'uint8'),...
 
 if label_results
     labeled_results = zeros(size(data(:,:,:,1)));
-    for i = 1:d_s(3)
+    for i = 1:d_s(4)
         i
         item_list = [];
         for c = 1:d_s(2)
@@ -16,7 +15,7 @@ if label_results
                 item_list(end+1,:) = [r c i];
             end
         end
-        image_labels = label_items(data(:,:,:,1),treeset,item_list,3);
+        image_labels = label_items(data,treeset,item_list,2);
         labeled_results(:,:,i) = reshape(image_labels,d_s(1),d_s(2));        
     end
     save('labeled_results','labeled_results');
@@ -25,12 +24,14 @@ disp_results = labeled_results;
 % for i = 1:size(disp_results,3)
 %     disp_results(:,:,i) = disp_results(:,:,i).*bwareaopen(disp_results(:,:,i),20);
 % end
-for i = 1:size(data,3)
+for i = 1:d_s(4)
     
-    frame = uint8(repmat(data(:,:,i,1),[1 1 3]));
+    frame = data(:,:,:,i);
+    frame = LABdist(frame,[64,64]);
+    frame = uint8(repmat(frame,[1 1 3]));
     
-    mask = data(:,:,i,2);
-    frame2 = repmat(data(:,:,i,2)*256,[1 1 3]);
+    mask = labels(:,:,i);
+    frame2 = ones(d_s(1),d_s(2),3);
     serial_frame2 = reshape(frame2,d_s(1)*d_s(2),3);
     serial_frame2(mask==0,:) = repmat([0,0,0],[sum(mask(:)==0) 1]);
     serial_frame2(mask==1,:) = repmat([256,256,0],[sum(mask(:)==1) 1]);
