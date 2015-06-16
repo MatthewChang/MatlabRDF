@@ -1,0 +1,5 @@
+function node = generate_tree(data,items,learners,labels)
+    seperations = generate_separations(data,items,learners);
+    node = generate_tree_separated(ones(num_items,1),labels,
+end
+
